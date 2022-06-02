@@ -207,6 +207,80 @@ tasaRecuperacion = cantrecuperados / cantCasos * 100
 print(f'La tasa de Mortalidad es: {tasaMortalidad}')
 print(f'La tasa de Recuperacion es: {tasaRecuperacion}')
 
+#23. Liste la tasa de mortalidad y recuperación que tiene cada departamento
+
+Fallecidosdpto = data[data['Estado'] == 'Fallecido'].groupby('Nombre departamento').size()
+Recuperadosdpto = data[data['Recuperado'] == 'Recuperado'].groupby('Nombre departamento').size()
+Casosdpto = data.groupby('Nombre departamento').size()
+
+tasaMortalidadDpto = Fallecidosdpto / Casosdpto * 100
+tasaRecuperacionDpto = Recuperadosdpto / Casosdpto * 100
+
+print(f'La tasa de Mortalidad por departamento es: \n {tasaMortalidadDpto}')
+print(f'La tasa de Recuperacion por departamento es: \n {tasaRecuperacionDpto}')
+
+#24. Liste la tasa de mortalidad y recuperación que tiene cada ciudad
+
+FallecidosCd = data[data['Estado'] == 'Fallecido'].groupby('Nombre municipio').size()
+RecuperadosCd = data[data['Recuperado'] == 'Recuperado'].groupby('Nombre municipio').size()
+CasosCd = data.groupby('Nombre municipio').size()
+
+tasaMortalidadCd = FallecidosCd / CasosCd * 100
+tasaRecuperacionCd = RecuperadosCd / CasosCd * 100
+
+print(f'La tasa de Mortalidad por Ciudad es: \n {tasaMortalidadCd}')
+print(f'La tasa de Recuperacion por Ciudad es: \n {tasaRecuperacionCd}')
+
+#25. Liste por cada ciudad la cantidad de personas por atención
+atencionCd = data.groupby(['Nombre municipio', 'Ubicación del caso']).size()
+print(f'Lista de personas en atencion por ciudad: \n{atencionCd}')
+
+#26. Liste el promedio de edad por sexo por cada ciudad de contagiados
+promEdadxSexo = data.groupby(['Nombre municipio', 'Sexo']).Edad.mean()
+print(f'Lista promedio de edad por ciudad contafiados: \n{promEdadxSexo}')
+
+#27. Grafique las curvas de contagio, muerte y recuperacion de toda Colombia 
+contagio = data.groupby('Fecha de diagnóstico').size().sort_values().plot(figsize=(15, 4))
+print('\nCurva de Contagios')
+plt.show(contagio)
+
+fallecido = data[data['Recuperado'] == 'fallecido'].groupby('Fecha de diagnóstico').size().sort_values().plot(figsize=(15, 4))
+print('\nCurva de Fallecidos')
+plt.show(fallecido)
+
+recuperado = data[data['Recuperado'] == 'Recuperado'].groupby('Fecha de diagnóstico').size().sort_values().plot(figsize=(15, 4))
+print('\nCurva de Recuperados')
+plt.show(recuperado)
+
+# 28. Grafique las curvas de contagio, muerte y recuperacion de los 10 departamentos con mas casos acumulados
+ctgdpto = data.groupby('Nombre departamento').size().sort_values(ascending=False).head(10).plot(figsize=(15, 4))
+print('\nCurva de los 10 departamentos con mas contagios')
+plt.show(ctgdpto)
+
+curv_fall_dpto = data[data['Recuperado'] == 'fallecido'].groupby('Nombre departamento').size().sort_values(ascending=False).head(10).plot(figsize=(15, 4))
+print('\nCurva de los 10 departamentos con mas personas fallecidas')
+plt.show(curv_fall_dpto)
+
+curv_recu_dpto = data[data['Recuperado'] == 'Recuperado'].groupby('Nombre departamento').size().sort_values(ascending=False).head(10).plot(figsize=(15, 4))
+print('\nCurva de los 10 departamentos con mas personas recuperadas')
+plt.show(curv_recu_dpto)
+
+# 29. Grafique las curvas de contagio, muerte y recuperacion de las 10 ciudades con mas casos acumulados
+curv_contg_mp= data.groupby('Nombre municipio').size().sort_values(ascending=False).head(10).plot(figsize=(15, 4))
+print('\nCurva de los 10 municipios con mas contagios')
+plt.show(curv_contg_mp)
+
+curv_falle_mp = data[data['Recuperado'] == 'fallecido'].groupby('Nombre municipio').size().sort_values(ascending=False).head(10).plot(figsize=(15, 4))
+print('\nCurva de los 10 municipios con mas personas fallecidas')
+plt.show(curv_falle_mp)
+
+curv_recu_mp = data[data['Recuperado'] == 'Recuperado'].groupby('Nombre municipio').size().sort_values(ascending=False).head(10).plot(figsize=(15, 4))
+print('\nCurva de los 10 municipios con mas personas recuperadas')
+plt.show(curv_recu_mp)
+
+#30. Liste de mayor a menor la cantidad de fallecidos por edad en toda Colombia
+fallecidos = data[data['Recuperado'] == 'fallecido'].groupby('Edad').size().sort_values(ascending = False)
+print(f'{fallecidos}')
 
 
 
