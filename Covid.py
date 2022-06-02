@@ -173,6 +173,40 @@ aux = data[(data['Recuperado'] == 'Recuperado')].groupby('Nombre municipio').siz
 Munrecuperados = aux.sort_values(ascending=False).head(10)
 print(f'Lista de los 10 municipios con mas recuperados: \n {Munrecuperados}')
 
+#17. Liste agrupado por departamento y en orden de Mayor a menor las ciudades con mas casos de contagiados
+aux = data.groupby(['Nombre departamento', 'Nombre municipio']).size()
+aux.sort_values(ascending=False)
+
+#18. Número de Mujeres y hombres contagiados por ciudad por departamento
+aux = data.groupby(['Nombre departamento', 'Nombre municipio', 'Sexo']).size()
+aux.sort_values(ascending=False)
+
+#19. Liste el promedio de edad de contagiados por hombre y mujeres por ciudad por departamento
+aux = data.groupby(['Nombre departamento', 'Nombre municipio', 'Edad']).size()
+aux.sort_values(ascending=False)
+
+#20. Liste de mayor a menor el número de contagiados por país de procedencia
+aux = data.groupby(['Nombre del país']).size()
+Paisctg = aux.sort_values(ascending=False)
+print(f'Lista de mayor a menor de num de contagiados por Pais: \n {Paisctg}')
+
+#21. Liste de mayor a menor las fechas donde se presentaron mas contagios
+aux = data.groupby(['Fecha de diagnóstico']).size()
+fechactg = aux.sort_values(ascending=False)
+print(f'Lista de mayor a menor de fechas de mas contagios: \n {fechactg}')
+
+#22. Diga cual es la tasa de mortalidad y recuperación que tiene toda Colombia
+
+cantfallecidos= data[data['Estado'] == 'Fallecido'].shape[0]
+cantrecuperados = data.query('Recuperado == "Recuperado"').shape[0]
+cantCasos = data.shape[0]
+
+tasaMortalidad = cantfallecidos / cantCasos * 100
+tasaRecuperacion = cantrecuperados / cantCasos * 100
+
+print(f'La tasa de Mortalidad es: {tasaMortalidad}')
+print(f'La tasa de Recuperacion es: {tasaRecuperacion}')
+
 
 
 
