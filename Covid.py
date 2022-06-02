@@ -122,6 +122,32 @@ aux = data.loc[(data['Recuperado'] == 'Recuperado')]
 NumeroDePersonasRecuperadas = aux.shape[0]
 print(f'Numero de personas que se encuentran Recuperados: {NumeroDePersonasRecuperadas}')
 
+#6. Número de personas que ha fallecido
+aux = data.loc[(data['Estado'] == 'Fallecido')]
+NumPersonasFallecidas = aux.shape[0]
+print(f'Numero de personas que han fallecido: {NumPersonasFallecidas}')
+
+#7. Ordenar de Mayor a menor por tipo de caso (Importado, en estudio,Relacionado)
+data.sort_values(by=data.loc[(data['Tipo de contagio'] == 'Importado')],ascending=False )
+data.sort_values(by=data.loc[(data['Tipo de contagio'] == 'Relacionado')],ascending=False )
+
+#8. Número de departamentos afectados
+data['Nombre departamento'].nunique()
+dpto = data['Nombre departamento'].nunique()
+print(f'El numero de departamentos Afectados es: {dpto}')
+
+#9. Liste los departamentos afectados(sin repetirlos)
+Adpto = data['Nombre departamento'].value_counts()
+print(f'Lista de los departamentos afectados (sin repetirlos): \n {Adpto}')
+
+#10. Ordene de mayor a menor por tipo de atención
+data.sort_values(by='Tipo de recuperación',ascending=False )
+
+#11.Liste de mayor a menor los 10 departamentos con mas casos de contagiados
+aux = data[(data['Estado'] == 'Leve') & (data['Estado'] == 'Moderado') & (data['Estado'] == 'Grave')].groupby('Nombre departamento').size()
+dptomayor = data['Nombre departamento'].value_counts().head(10)
+print(f'Lista de los 10 departamentos con mas casos: \n {dptomayor}')
+
 
 
 
