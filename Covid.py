@@ -114,18 +114,18 @@ print(f'Lista de los municipios afectados (sin repetirlos): \n {Muni}')
 
 #4. Número de personas que se encuentran en atención en casa
 aux = data.loc[(data['Ubicación del caso'] == 'Casa')]
-NumeroDePersonasEnCasa = aux.shape[0]
-print(f'Numero de personas que se encuentran en atención en casa: {NumeroDePersonasEnCasa}')
+NPersonasEnCasa = aux.shape[0]
+print(f'Numero de personas que se encuentran en atención en casa: {NPersonasEnCasa}')
 
 #5. Número de personas que se encuentran recuperados
 aux = data.loc[(data['Recuperado'] == 'Recuperado')]
-NumeroDePersonasRecuperadas = aux.shape[0]
-print(f'Numero de personas que se encuentran Recuperados: {NumeroDePersonasRecuperadas}')
+NPersonasRecuperadas = aux.shape[0]
+print(f'Numero de personas que se encuentran Recuperados: {NPersonasRecuperadas}')
 
 #6. Número de personas que ha fallecido
 aux = data.loc[(data['Estado'] == 'Fallecido')]
-NumPersonasFallecidas = aux.shape[0]
-print(f'Numero de personas que han fallecido: {NumPersonasFallecidas}')
+NPersonasFallecidas = aux.shape[0]
+print(f'Numero de personas que han fallecido: {NPersonasFallecidas}')
 
 #7. Ordenar de Mayor a menor por tipo de caso (Importado, en estudio,Relacionado)
 data.sort_values(by=data.loc[(data['Tipo de contagio'] == 'Importado')],ascending=False )
